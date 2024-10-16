@@ -16,7 +16,7 @@ def local_build(args: Namespace) -> None:
     local_clean(args)
 
     env = os.environ.copy()
-    env['PATH'] = f'{config.TOOLCHAIN_PATH}:{env["PATH"]}'
+    env['PATH'] = f'{config.TOOLCHAIN_PATH}/bin:{env["PATH"]}'
 
     subprocess.run(['make'], cwd=get_os_source_path(args), env=env)
 
