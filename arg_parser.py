@@ -22,12 +22,12 @@ class OslabFrameworkClientArgumentParser(argparse.ArgumentParser):
 
 def build_parser():
     parser = OslabFrameworkClientArgumentParser(
-        description="限定调用方式的脚本"
+        description="CNU-OSLAB 守护进程"
     )
 
     subparsers = parser.add_subparsers(
         dest='mode',
-        required=True,  # 确保必须提供一个子命令
+        required=True,
         help='运行模式'
     )
 
@@ -40,30 +40,30 @@ def build_parser():
     )
     local_subparsers = parser_local.add_subparsers(
         dest='action',
-        required=True,  # 确保必须提供一个动作
+        required=True,
         help='本地动作'
     )
-    parser_local_build = local_subparsers.add_parser('build', help='构建本地项目')
+    parser_local_build = local_subparsers.add_parser('build', help='构建本地内核')
     parser_local_build.set_defaults(func=local.local_build)
-    parser_local_run = local_subparsers.add_parser('run', help='运行本地项目')
+    parser_local_run = local_subparsers.add_parser('run', help='运行本地内核')
     parser_local_run.set_defaults(func=local.local_run)
-    parser_local_clean = local_subparsers.add_parser('clean', help='清理本地项目')
+    parser_local_clean = local_subparsers.add_parser('clean', help='清理本地内核')
     parser_local_clean.set_defaults(func=local.local_clean)
-    parser_local_clean = local_subparsers.add_parser('detect', help='探测本地项目')
+    parser_local_clean = local_subparsers.add_parser('detect', help='检测本地内核')
     parser_local_clean.set_defaults(func=local.local_detect)
 
     parser_remote = subparsers.add_parser('remote', help='远程模式')
     remote_subparsers = parser_remote.add_subparsers(
         dest='action',
-        required=True,  # 确保必须提供一个动作
+        required=True,
         help='远程动作'
     )
-    parser_remote_test = remote_subparsers.add_parser('submit', help='测试远程项目')
+    parser_remote_test = remote_subparsers.add_parser('submit', help='提交内核代码并进行测评')
     parser_remote_test.add_argument(
         '--eval_id', '-e',
         type=int,
         required=True,
-        help='测试所需的实验ID'
+        help='测评实验ID'
     )
     parser_remote_test.set_defaults(func=remote.remote_submit)
 
