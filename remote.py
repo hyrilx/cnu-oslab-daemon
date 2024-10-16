@@ -6,8 +6,6 @@ from pathlib import Path
 import requests
 import tempfile
 
-from flask import Response
-
 import config
 
 
@@ -30,7 +28,6 @@ def create_archive(directory:PathLike):
 def upload_directory(eval_id:str) -> None:
     archive_path = create_archive(Path(config.OS_SOURCE_PATH))
 
-    response: Response
     with open(archive_path, 'rb') as f:
         response = requests.post(f'{config.SERVER}/submit', files={'file': f},
                                  data={'user_id': config.STUDENT_ID, 'exp_id': eval_id}, stream=True)
