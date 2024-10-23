@@ -7,6 +7,7 @@ import requests
 import tempfile
 
 import config
+import local
 
 
 def create_archive(directory:PathLike):
@@ -46,4 +47,5 @@ def remote_submit(args):
     eval_id = args.eval_id
 
     print('[SUBMITTING...]')
+    local.local_clean(args)
     upload_directory(eval_id)
